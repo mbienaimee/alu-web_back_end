@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ locale }}">
 <head>
     <meta charset="UTF-8">
     <title>User Login Mock</title>
 </head>
 <body>
-    {% if g.user %}
+    {% if user %}
         <p>
-            {% if g.locale == 'fr' %}
-                Vous êtes connecté en tant que {{ g.user.name }}.
+            {% if locale == 'fr' %}
+                Vous êtes connecté en tant que {{ user.name }}.
             {% else %}
-                You are logged in as {{ g.user.name }}.
+                You are logged in as {{ user.name }}.
             {% endif %}
         </p>
     {% else %}
         <p>
-            {% if g.locale == 'fr' %}
+            {% if locale == 'fr' %}
                 Vous n'êtes pas connecté.
             {% else %}
                 You are not logged in.

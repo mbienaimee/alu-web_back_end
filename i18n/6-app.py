@@ -24,11 +24,11 @@ def get_user() -> Optional[Dict[str, Any]]:
     :return: A user dictionary if found, otherwise None.
     """
     try:
-        user_id: Optional[str] = request.args.get('login_as')
+        user_id = request.args.get('login_as')
         if user_id is not None:
-            return users.get(int(user_id))
+            return users.get(int(user_id))  # Returns None if user_id is not in users
     except (ValueError, TypeError):
-        return None
+        pass
     return None
 
 
@@ -37,22 +37,15 @@ def get_locale() -> str:
     Determine the best locale to use based on URL parameters, user settings.
     :return: The best locale to use.
     """
-    # Locale from URL parameters
     locale = request.args.get('locale')
     if locale in SUPPORTED_LOCALES:
         return locale
 
-    # Locale from user settings
-    if g.user and g.user['locale'] in SUPPORTED_LOCALES:
+    if g.user and g.user.get('locale') in SUPPORTED_LOCALES:
         return g.user['locale']
 
-    # Locale from request headers
     locale = request.accept_languages.best_match(SUPPORTED_LOCALES)
-    if locale:
-        return locale
-
-    # Default locale
-    return 'en'
+    return locale if locale else 'en'
 
 
 @app.before_request
@@ -70,7 +63,7 @@ def index() -> str:
     Render the index page.
     :return: Rendered HTML content.
     """
-    return render_template('6-index.html')
+    return render_template('6-index.html', user=g.user, locale=g.locale)
 
 
 if __name__ == "__main__":
