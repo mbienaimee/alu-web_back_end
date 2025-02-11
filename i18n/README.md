@@ -1,1 +1,1 @@
-# 0x0A. i18n
+Redme file for i18n project
