@@ -63,7 +63,11 @@ def index() -> str:
     Render the index page.
     :return: Rendered HTML content.
     """
-    return render_template('6-index.html', user=g.user, locale=g.locale)
+    return render_template(
+        '6-index.html',
+        user=g.user,
+        locale=g.locale
+    )
 
 
 if __name__ == "__main__":
