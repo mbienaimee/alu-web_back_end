@@ -2,16 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ _('home_title') }}</title>
+    <title>User Login Mock</title>
 </head>
 <body>
-    <h1>{{ _('home_header') }}</h1>
     {% if g.user %}
-    <p>{{ _('logged_in_as', username=g.user.get('name', '')) }}</p>
+        <p>
+            {% if g.locale == 'fr' %}
+                Vous êtes connecté en tant que {{ g.user.name }}.
+            {% else %}
+                You are logged in as {{ g.user.name }}.
+            {% endif %}
+        </p>
+        <p>
+            {% if g.locale == 'fr' %}
+                Votre fuseau horaire est {{ g.timezone }}.
+            {% else %}
+                Your timezone is {{ g.timezone }}.
+            {% endif %}
+        </p>
     {% else %}
-    <p>{{ _('not_logged_in') }}</p>
+        <p>
+            {% if g.locale == 'fr' %}
+                Vous n'êtes pas connecté.
+            {% else %}
+                You are not logged in.
+            {% endif %}
+        </p>
     {% endif %}
 </body>
 </html>
