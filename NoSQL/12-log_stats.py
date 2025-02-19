@@ -9,6 +9,18 @@ def nginx_log_stats():
     db = client.logs
     nginx_collection = db.nginx
     
+    # Ensure collection is not empty
+    if nginx_collection.estimated_document_count() == 0:
+        print('0 logs')
+        print('Methods:')
+        print('\tmethod GET: 0')
+        print('\tmethod POST: 0')
+        print('\tmethod PUT: 0')
+        print('\tmethod PATCH: 0')
+        print('\tmethod DELETE: 0')
+        print('0 status check')
+        return
+    
     # Count total logs
     n_logs = nginx_collection.count_documents({})
     print(f'{n_logs} logs')
